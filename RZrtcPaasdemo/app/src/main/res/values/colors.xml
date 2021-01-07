@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="color_bg_gray_888">#888888</color>
+    <color name="color_item_split_bg">#e8eaef</color>
+    <color name="color_item_split">#e8eaef</color>
+    <color name="color_bg_gray_eee">#eee</color>
+    <color name="color_bg_transparent">#88888888</color>
+    <color name="color_bg_blue">#1e6ceb</color>
+    <color name="color_split">#1AFFFFFF</color>
+    <color name="color_green">#00ff00</color>
+    <color name="color_red">#ff0000</color>
+    <color name="color_back_item">#F7F8FA</color>
+    <color name="color_blue">#0000ff</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000</color>
+    <color name="color_personal_model">#ffa62f</color>
+    <color name="color_upu_model">#eb5757</color>
+    <color name="color_net_work_model">#34bc40</color>
+    <color name="color_statistic_model">#1e6ceb</color>
+
+    <color name="color_communication_menu_item_bg">#f7f8fa</color>
+
+    <color name="color_text_dark">#38455d</color>
+    <color name="color_text_light">#929baa</color>
+    <color name="color_not_have_anchor">#cfd3de</color>
+    <color name="color_text_tab_unselected">#64728c</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+</resources>
