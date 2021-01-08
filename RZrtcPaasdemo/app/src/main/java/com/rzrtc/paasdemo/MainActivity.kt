@@ -2,6 +2,7 @@ package com.rzrtc.paasdemo
 
 import android.Manifest
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.Navigation
@@ -14,6 +15,7 @@ import com.rz.paas.utils.Constant
 import com.rz.paas.video.VideoEncoderConfiguration
 import com.rzrtc.paasdemo.bean.DataBean
 import com.rzrtc.paasdemo.const.AppConstant
+import com.rzrtc.paasdemo.const.VIDEO_MIRROR_MODE_TYPE
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -38,10 +40,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    }
+
     fun getVideoEncoderConfiguration(): VideoEncoderConfiguration {
         var configuration = VideoEncoderConfiguration(640, 480)
         configuration.frameRate = 15
-        configuration.mirrorMode = 0//自动
+        configuration.mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_AUTO//自动
         configuration.orientationMode =
             VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_LANDSCAPE.ordinal
         return configuration

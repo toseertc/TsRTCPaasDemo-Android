@@ -209,7 +209,7 @@ class LiveFragment : Fragment() {
 
     private fun addData(it: VideoData) {
 
-        val videoCanvas = VideoCanvas(it.renderView, 2, 0)
+        val videoCanvas = VideoCanvas(it.renderView, RENDER_MODE_TYPE.RENDER_MODE_FIT, VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_AUTO)
 
         if (it.isSelf) {
             PaaSInstance.setupLocalVideo(videoCanvas)
