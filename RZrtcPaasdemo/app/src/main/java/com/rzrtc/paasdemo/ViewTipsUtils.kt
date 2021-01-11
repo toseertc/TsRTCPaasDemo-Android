@@ -32,9 +32,9 @@ fun getCameraIcon(iv: TextView, videoData: VideoData): View {
     drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
     val hintText =
         if (videoData.muteCamera) {
-            "停止"
+            "关闭"
         } else {
-            "拉取"
+            "开启"
         }
     iv.textSize = 10f;//dp2px(iv.context, 4).toFloat()
     iv.setText(hintText)
@@ -79,9 +79,9 @@ fun getMicOperatorIcon(iv: TextView, videoData: VideoData):View {
     drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
     val hintText =
         if (videoData.muteMicrophone) {
-            "停止"
+            "关闭"
         } else {
-            "拉取"
+            "开启"
         }
     iv.text = hintText
     iv.textSize = 10f;//dp2px(iv.context, 4).toFloat()

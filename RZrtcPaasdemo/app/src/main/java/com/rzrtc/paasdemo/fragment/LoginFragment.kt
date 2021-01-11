@@ -49,6 +49,9 @@ class LoginFragment : Fragment() {
                 openDialog("进入频道失败", "当前用户ID不合法")
                 return@setOnClickListener
             }
+            if (UiUtils.isFastDoubleClick) {
+                return@setOnClickListener
+            }
             SharePreUtils.getInstance(context).setValue(AppConstant.CHANNEL_ID, channelId)
             SharePreUtils.getInstance(context).setValue(AppConstant.USER_ID, userId)
 
@@ -112,7 +115,7 @@ class LoginFragment : Fragment() {
                 ERROR_TYPE.ERR_LOOKUP_SERVER_TIMEOUT,
                 ERROR_TYPE.ERR_NO_AVAILABLE_SERVER_RESOURCES ->
                     activity?.runOnUiThread {
-                        openDialog("进入频道失败", "$msg  $err")
+                        openDialog("进入频道失败", "获取服务器资源失败 \n 错误码： $err")
                     }
 
             }

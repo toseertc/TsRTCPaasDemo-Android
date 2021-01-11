@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     fun createChannel(channelId: String) {
         if (createChannel != null) {
+            createChannel?.leaveChannel()
             createChannel?.release()
         }
         createChannel = PaaSInstance.createChannel(0, channelId)

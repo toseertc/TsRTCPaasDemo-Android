@@ -45,6 +45,7 @@ class LiveFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mActivity = activity as MainActivity
         PaaSInstance.addChannelEventHandler(channelEventHandler)
+        PaaSInstanceHelper.addListener(informationInterface)
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
@@ -128,6 +129,8 @@ class LiveFragment : Fragment() {
             if (dialog.isShowing) {
                 dialog.dismiss()
             }
+            leave(requireView())
+
         }
         dialog.show()
         dialog.showCloseButton()
@@ -231,11 +234,15 @@ class LiveFragment : Fragment() {
 
         override fun onUserOffline(channel: IRtcChannel, userID: String, reason: Int) {
             mActivity.runOnUiThread {
-                for (dataBean in mActivity.modifyList) {
+                for (index in mActivity.modifyList.indices) {
+                    val dataBean=mActivity.modifyList[index]
+
                     if (dataBean.uid == userID) {
                         removeList(dataBean)
+                        mActivity.modifyList.remove(dataBean)
                     }
                 }
+
             }
         }
 
@@ -336,6 +343,8 @@ class LiveFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        mActivity.modifyList.clear()
         PaaSInstance.removeChannelEventHandler(channelEventHandler)
+        PaaSInstanceHelper.removeListener(informationInterface)
     }
 }
