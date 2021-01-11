@@ -233,16 +233,14 @@ class LiveFragment : Fragment() {
         }
 
         override fun onUserOffline(channel: IRtcChannel, userID: String, reason: Int) {
-            mActivity.runOnUiThread {
-                for (index in mActivity.modifyList.indices) {
-                    val dataBean=mActivity.modifyList[index]
 
+            mActivity.runOnUiThread {
+                for (dataBean in mActivity.modifyList) {
                     if (dataBean.uid == userID) {
                         removeList(dataBean)
                         mActivity.modifyList.remove(dataBean)
                     }
                 }
-
             }
         }
 
