@@ -1,7 +1,8 @@
 package com.rzrtc.paasdemo.const
 
 object AppConstant {
-    const val DEFAULT_APPID="Drv4Q0KB14Y85qma"
+    //填写对应相关的appid
+    const val DEFAULT_APPID="
 
     const val devEnv="{\"api\":\"https://api.rzrtc.com\",\"log\":\"http://data-center-dev.duobeiyun.com\"}"
     const val CHANNEL_ID = "channelId"
