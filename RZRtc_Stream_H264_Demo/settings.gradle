@@ -1,0 +1,3 @@
+include ':parseh264'
+include ':app'
+rootProject.name = "RZRtc_Stream_H264_Demo"

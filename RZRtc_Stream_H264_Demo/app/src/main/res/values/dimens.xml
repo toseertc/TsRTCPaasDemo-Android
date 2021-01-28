@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_7dp">7dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <dimen name="margin_50dp">50dp</dimen>
+    <dimen name="margin_70dp">70dp</dimen>
+    <dimen name="margin_80dp">80dp</dimen>
+
+    <dimen name="padding_5dp">5dp</dimen>
+    <dimen name="padding_7dp">7dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_15dp">15dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+
+    <dimen name="item_width_10dp">10dp</dimen>
+    <dimen name="item_width_15dp">15dp</dimen>
+    <dimen name="item_width_20dp">20dp</dimen>
+    <dimen name="item_width_30dp">30dp</dimen>
+    <dimen name="item_width_50dp">50dp</dimen>
+    <dimen name="item_width_70dp">70dp</dimen>
+    <dimen name="item_width_100dp">100dp</dimen>
+    <dimen name="item_width_120dp">120dp</dimen>
+
+
+    <dimen name="item_height_1dp">1dp</dimen>
+    <dimen name="item_height_2dp">2dp</dimen>
+    <dimen name="item_height_5dp">5dp</dimen>
+    <dimen name="item_height_10dp">10dp</dimen>
+    <dimen name="item_height_20dp">20dp</dimen>
+    <dimen name="item_height_24dp">24dp</dimen>
+    <dimen name="item_height_30dp">30dp</dimen>
+    <dimen name="item_height_40dp">40dp</dimen>
+    <dimen name="item_height_50dp">50dp</dimen>
+    <dimen name="item_height_300dp">300dp</dimen>
+    <dimen name="item_height_200dp">200dp</dimen>
+    <dimen name="item_split_height_1dp">1dp</dimen>
+
+    <dimen name="test_size_5sp">5sp</dimen>
+    <dimen name="test_size_7sp">7sp</dimen>
+    <dimen name="test_size_10sp">10sp</dimen>
+    <dimen name="test_size_12sp">12sp</dimen>
+    <dimen name="test_size_13sp">13sp</dimen>
+    <dimen name="test_size_14sp">14sp</dimen>
+    <dimen name="test_size_15sp">15sp</dimen>
+    <dimen name="test_size_18sp">18sp</dimen>
+    <dimen name="test_size_20sp">20sp</dimen>
+    <dimen name="test_size_25sp">25sp</dimen>
+    <dimen name="test_size_30sp">30sp</dimen>
+    <dimen name="test_size_40sp">40sp</dimen>
+    <dimen name="test_size_50sp">50sp</dimen>
+
+
+    <dimen name="communication_bottom_menu_model_radius">15dp</dimen>
+    <dimen name="communication_bottom_menu_model_text_size">10sp</dimen>
+
+</resources>

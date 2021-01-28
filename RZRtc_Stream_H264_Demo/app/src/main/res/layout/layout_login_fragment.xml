@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_blue"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_90_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="H264. Demo"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_line"
+        app:layout_constraintRight_toRightOf="@+id/guide_line_90_percent"
+        android:textColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_70dp"
+        android:textSize="36dp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/channel_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="频道 ID"
+        android:textColorHint="@color/color_white"
+        android:textSize="@dimen/test_size_12sp"
+        app:errorEnabled="true"
+        android:layout_marginTop="@dimen/margin_50dp"
+        app:hintTextAppearance="@style/TextInputLayoutStyle"
+        app:boxStrokeColor="@color/color_white"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_line"
+        app:layout_constraintRight_toRightOf="@+id/guide_line_90_percent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/channel_id_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:theme="@style/TextInputLayoutStyle"
+            android:textColor="@color/color_white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="用户 ID"
+        android:textColorHint="@color/color_white"
+        android:textSize="@dimen/test_size_12sp"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextInputLayoutStyle"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_90_percent"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_line"
+        app:layout_constraintRight_toRightOf="@+id/guide_line_90_percent"
+        app:layout_constraintStart_toStartOf="@+id/guide_line"
+        app:layout_constraintTop_toBottomOf="@+id/channel_id">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_id_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:theme="@style/TextInputLayoutStyle"
+            android:textColor="@color/color_white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:background="@drawable/round_solid_stroke_white_radius_5_bg"
+        android:text="进入频道"
+        android:textColor="@color/color_white"
+        app:layout_constraintLeft_toLeftOf="@id/guide_line"
+        app:layout_constraintRight_toRightOf="@id/guide_line_90_percent"
+        app:layout_constraintTop_toBottomOf="@+id/user_id" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

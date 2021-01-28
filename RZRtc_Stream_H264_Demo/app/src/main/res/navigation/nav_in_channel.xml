@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_in_channel"
+    app:startDestination="@id/login_fragment">
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.rzrtc.h264demo.fragment.LoginFragment"
+        layout="@layout/layout_login_fragment">
+        <action
+            android:id="@+id/action_loading_to_communication"
+            app:destination="@+id/live_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_in_channel"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/live_fragment"
+        android:name="com.rzrtc.h264demo.fragment.LiveFragment"
+        layout="@layout/layout_video_fragment">
+
+    </fragment>
+
+
+</navigation>
