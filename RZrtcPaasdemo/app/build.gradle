@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //rzrtc sdk
-     implementation 'com.github.rzrtcbuilder:rz-paas-sdk:1.5.2'
+     implementation 'com.github.rzrtcbuilder:rz-paas-sdk:1.6.0'
 
 
 
