@@ -35,7 +35,7 @@ public class CustomVideoSource implements IVideoSource {
     public VideoCapturer mVideoCapturer;
     public SurfaceTextureHelper mSurfaceTextureHelper;
     public boolean mVideoCapturerStopped;
-    public int width = 1280, height = 720, fps = 15;//暂时设置为30fps
+    public int width = 1280, height = 720, fps = 30;//暂时设置为30fps
     private volatile IVideoFrameConsumer consumer;
     private boolean mShouldCapture = false;//是否开始采集，主要考虑同时只能开启一次采集；第二路通过拷贝处理；不进行采集
     private List<IVideoSink> captureVideoSinkList = new ArrayList<>();//本地采集的渲染接口
@@ -245,6 +245,11 @@ public class CustomVideoSource implements IVideoSource {
     public boolean onInitialize(IVideoFrameConsumer iVideoFrameConsumer) {
         this.consumer = iVideoFrameConsumer;
         return true;
+    }
+
+    @Override
+    public boolean onLowStreamReady(IVideoFrameConsumer iVideoFrameConsumer) {
+        return false;
     }
 
     @Override

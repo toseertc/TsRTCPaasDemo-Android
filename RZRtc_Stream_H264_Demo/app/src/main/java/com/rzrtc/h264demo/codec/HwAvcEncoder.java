@@ -56,7 +56,7 @@ public class HwAvcEncoder implements EnCodecCallback {
         mVideoEncoder = new AndroidVideoEncoder(codecName, type,
                 surfaceColorFormat, yuvColorFormat, new HashMap<String, String>(), 2, new BaseBitrateAdjuster(),
                 sharedContext);
-        DBVideoCodecStatus dbVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate, HwAvcEncoder.this);
+        DBVideoCodecStatus dbVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate,0, HwAvcEncoder.this);
         code = dbVideoCodecStatus.getNumber();
 
         return code;
