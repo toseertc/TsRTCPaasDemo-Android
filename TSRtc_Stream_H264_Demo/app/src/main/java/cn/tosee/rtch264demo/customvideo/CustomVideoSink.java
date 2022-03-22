@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
 import cn.tosee.rtch264demo.codec.HwAvcDecoder;
 import cn.tosee.rtch264demo.constant.VIDEO_PIXEL_FORMAT;
 import cn.tosee.rtch264demo.constant.VIDEO_STREAM_TYPE;
-import com.rzrtc.parseh264.H264Utils;
+import cn.tosee.parseh264.H264Utils;
 
 /**
  * @author : create by yanggaosheng$

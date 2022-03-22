@@ -3,20 +3,15 @@ package cn.tosee.rtch264demo.codec;
 import android.media.MediaCodecInfo;
 import android.os.Build;
 
+import java.nio.ByteBuffer;
+
 import cn.tosee.rtc.annotation.CalledByNative;
-import cn.tosee.rtc.capture.EglBase;
 import cn.tosee.rtc.capture.VideoFrame;
 import cn.tosee.rtc.codec.AndroidVideoDecoder;
-import cn.tosee.rtc.codec.DBCodecUtils;
-import cn.tosee.rtc.codec.DBVideoCodecStatus;
 import cn.tosee.rtc.codec.DeCodecCallback;
+import cn.tosee.rtc.codec.TSCodecUtils;
+import cn.tosee.rtc.codec.TSVideoCodecStatus;
 import cn.tosee.rtc.utils.Constant;
-import com.rzrtc.parseh264.H264Utils;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
 
 public class HwAvcDecoder implements DeCodecCallback {
 
@@ -32,14 +27,14 @@ public class HwAvcDecoder implements DeCodecCallback {
     @CalledByNative
     public int start(int w, int h) {
 
-        MediaCodecInfo info = DBCodecUtils.findCodecForType(DBCodecUtils.VideoCodecMimeType.H264);
+        MediaCodecInfo info = TSCodecUtils.findCodecForType(TSCodecUtils.VideoCodecMimeType.H264);
         if (info == null) {
             return Constant.WARN_VCM_DECODER_HW_FAILED;//切换为软解
         }
         MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType("video/avc");
         decoder = new AndroidVideoDecoder(info.getName(),
-                DBCodecUtils.VideoCodecMimeType.H264, selectColorFormat(DBCodecUtils.DECODER_COLOR_FORMATS, capabilities), null);
-        DBVideoCodecStatus result = decoder.initDecode(w, h, HwAvcDecoder.this);
+                TSCodecUtils.VideoCodecMimeType.H264, selectColorFormat(TSCodecUtils.DECODER_COLOR_FORMATS, capabilities), null);
+        TSVideoCodecStatus result = decoder.initDecode(w, h, HwAvcDecoder.this);
 
         return result.getNumber();
 
