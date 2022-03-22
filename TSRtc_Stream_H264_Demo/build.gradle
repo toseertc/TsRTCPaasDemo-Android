@@ -1,4 +1,4 @@
-apply from: '/Users/yanggge/workspace/duobei/rz-android-project/RZProjec/config.gradle'
+//apply from: '/Users/yanggge/workspace/duobei/rz-android-project/RZProjec/config.gradle'
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.4.21"
