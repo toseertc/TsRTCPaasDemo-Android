@@ -1,3 +1,4 @@
 include ':parseh264'
 include ':app'
+include ':librz'
 rootProject.name = "RZRtc_Stream_H264_Demo"

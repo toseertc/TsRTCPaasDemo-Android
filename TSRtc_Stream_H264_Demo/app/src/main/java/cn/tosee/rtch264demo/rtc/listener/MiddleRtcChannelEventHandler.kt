@@ -112,9 +112,17 @@ abstract class MiddleRtcChannelEventHandler {
      * stats 的为SDK的相关统计信息的事件回调
      */
 
-    open fun onRemoteAudioStats(channel: IRtcChannel?, stats: RemoteAudioStats?) {}
+    open fun onRemoteAudioStats(channel: IRtcChannel, stats: RemoteAudioStats) {}
 
-    open fun onRemoteVideoStats(channel: IRtcChannel?, stats: RemoteVideoStats?) {}
+    open fun onRemoteVideoStats(channel: IRtcChannel, stats: RemoteVideoStats) {}
 
-    open fun onRtcStats(channel: IRtcChannel?, stats: RtcStats?) {}
+    open fun onRtcStats(channel: IRtcChannel, stats: RtcStats) {}
+
+    /**
+     *
+     * @param newBitrate 预测的新的码率, int类型
+     * @param isLowVideo 是否为小流
+     *
+     */
+    open fun onPredictedBitrateChanged(uid: String?, streamName: String?, newBitrate: Int, isLowVideo: Boolean){}
 }
