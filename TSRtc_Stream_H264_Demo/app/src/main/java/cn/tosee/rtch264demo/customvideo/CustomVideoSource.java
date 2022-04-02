@@ -13,7 +13,7 @@ import cn.tosee.rtc.capture.VideoCapturer;
 import cn.tosee.rtc.capture.VideoFrame;
 import cn.tosee.rtc.capture.YuvHelper;
 import cn.tosee.rtc.internal.PermissionsProcess;
-import cn.tosee.rtc.log.RZLog;
+import cn.tosee.rtc.log.TSLog;
 import cn.tosee.rtc.video.IVideoFrameConsumer;
 import cn.tosee.rtc.video.IVideoSink;
 import cn.tosee.rtc.video.IVideoSource;
@@ -259,13 +259,13 @@ public class CustomVideoSource implements IVideoSource {
 
     @Override
     public int onStart() {
-        RZLog.e("ygscustom--->CustomVideoSource onstart" + this);
+        TSLog.e("ygscustom--->CustomVideoSource onstart" + this);
         return start();
     }
 
     @Override
     public void onStop() {
-        RZLog.e("ygscustom--->CustomVideoSource onstop" + this);
+        TSLog.e("ygscustom--->CustomVideoSource onstop" + this);
         stop();
     }
 
