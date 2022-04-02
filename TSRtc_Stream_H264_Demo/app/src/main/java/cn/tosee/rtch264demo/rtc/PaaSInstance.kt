@@ -7,7 +7,7 @@ import android.view.SurfaceView
 import cn.tosee.rtc.*
 import cn.tosee.rtc.annotation.CalledByNative
 import cn.tosee.rtc.internal.LastmileProbeConfig
-import cn.tosee.rtc.log.RZLog
+import cn.tosee.rtc.log.TSLog
 import cn.tosee.rtc.stats.*
 import cn.tosee.rtc.video.IVideoSink
 import cn.tosee.rtc.video.VideoEncoderConfiguration
@@ -629,7 +629,7 @@ object PaaSInstance {
         }
 
         override fun onError(channel: IRtcChannel?, err: Int, msg: String?) {
-            RZLog.e("IRtcEngineEventHandler.onError() err=${err} msg=${msg}")
+            TSLog.e("IRtcEngineEventHandler.onError() err=${err} msg=${msg}")
             Log.e(TAG, "IRtcEngineEventHandler.onError() err=${err} msg=${msg}")
             for (listener in mChannelEventHandlerList) {
                 listener.onError(channel, err, msg)

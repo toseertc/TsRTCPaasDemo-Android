@@ -9,11 +9,11 @@ import cn.tosee.rtc.capture.JavaI420Buffer;
 import cn.tosee.rtc.capture.VideoFrame;
 import cn.tosee.rtc.codec.AndroidVideoEncoder;
 import cn.tosee.rtc.codec.BaseBitrateAdjuster;
-import cn.tosee.rtc.codec.DBCodecUtils;
-import cn.tosee.rtc.codec.DBVideoCodecStatus;
+import cn.tosee.rtc.codec.TSCodecUtils;
+import cn.tosee.rtc.codec.TSVideoCodecStatus;
 import cn.tosee.rtc.codec.EnCodecCallback;
 import cn.tosee.rtc.codec.EncodedImage;
-import cn.tosee.rtc.log.RZLog;
+import cn.tosee.rtc.log.TSLog;
 import cn.tosee.rtc.utils.Constant;
 
 import java.nio.ByteBuffer;
@@ -41,10 +41,10 @@ public class HwAvcEncoder implements EnCodecCallback {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return Constant.WARN_VCM_ENCODER_HW_FAILED;
         }
-        DBCodecUtils.VideoCodecMimeType type = DBCodecUtils.VideoCodecMimeType.valueOf(DBCodecUtils.VideoCodecMimeType.H264.name());
-        MediaCodecInfo info = DBCodecUtils.findCodecForType(type);
+        TSCodecUtils.VideoCodecMimeType type = TSCodecUtils.VideoCodecMimeType.valueOf(TSCodecUtils.VideoCodecMimeType.H264.name());
+        MediaCodecInfo info = TSCodecUtils.findCodecForType(type);
         if (info == null) {
-            RZLog.e("can't open start hwAvcEncoder");
+            TSLog.e("can't open start hwAvcEncoder");
             return Constant.WARN_VCM_ENCODER_HW_FAILED;
         }
         String codecName = info.getName();
@@ -56,8 +56,8 @@ public class HwAvcEncoder implements EnCodecCallback {
         mVideoEncoder = new AndroidVideoEncoder(codecName, type,
                 surfaceColorFormat, yuvColorFormat, new HashMap<String, String>(), 2, new BaseBitrateAdjuster(),
                 sharedContext);
-        DBVideoCodecStatus dbVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate,0, HwAvcEncoder.this);
-        code = dbVideoCodecStatus.getNumber();
+        TSVideoCodecStatus TSVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate,0, HwAvcEncoder.this);
+        code = TSVideoCodecStatus.getNumber();
 
         return code;
     }
@@ -65,7 +65,7 @@ public class HwAvcEncoder implements EnCodecCallback {
 
     public int renderFrame(final VideoFrame frame) {
         if (mVideoEncoder != null) {
-            DBVideoCodecStatus encode = mVideoEncoder.encode(frame, false);
+            TSVideoCodecStatus encode = mVideoEncoder.encode(frame, false);
             return encode.getNumber();
         }
         return 0;
