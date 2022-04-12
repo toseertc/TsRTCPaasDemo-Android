@@ -307,7 +307,21 @@ class LiveFragment : Fragment() {
                     "预测带宽： ${NetworkUtils.convertNetSpeed(newBitrate)}"
             }
             if (isLowVideo) return
-            mActivity.customVideoSource?.resetBitrate(newBitrate)
+            val currentRealBitrate = BitrateUtil.getRealBitrate(
+                1280,
+                720,
+                15
+            )
+            val newbitrate = if (currentRealBitrate > newBitrate) {
+                if(newBitrate < currentRealBitrate.shr(2)){
+                    currentRealBitrate.shr(2)
+                }else{
+                    newBitrate
+                }
+            } else {
+                currentRealBitrate
+            }
+            mActivity.customVideoSource?.resetBitrate(newbitrate)
 
         }
     }

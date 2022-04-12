@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     var createVideoStream: IRtcStream? = null
     val shouldVideoCodec = true //如果不需要使用外部编解码，则修改为false
     val isDynamicBitrateOpen = true
-    val dynamicBitrateMode = 0
+    val dynamicBitrateMode = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
