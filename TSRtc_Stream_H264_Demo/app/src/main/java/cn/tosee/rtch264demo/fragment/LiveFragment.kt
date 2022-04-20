@@ -8,7 +8,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import cn.tosee.rtc.IRtcChannel
+import cn.tosee.rtc.stats.RemoteVideoStats
 import cn.tosee.rtc.stats.RtcStats
+import cn.tosee.rtc.stream.IRtcStream
 import cn.tosee.rtc.video.GLFrameSurfaceView
 import cn.tosee.rtch264demo.MainActivity
 import cn.tosee.rtch264demo.R
@@ -19,6 +21,9 @@ import cn.tosee.rtch264demo.rtc.PaaSInstance
 import cn.tosee.rtch264demo.rtc.PaaSInstanceHelper
 import cn.tosee.rtch264demo.rtc.listener.InformationInterface
 import cn.tosee.rtch264demo.rtc.listener.MiddleRtcChannelEventHandler
+import cn.tosee.rtch264demo.rtc.listener.MiddleStreamCallback
+import cn.tosee.rtch264demo.utils.BitrateUtil
+import cn.tosee.rtch264demo.utils.NetworkUtils
 import cn.tosee.rtch264demo.utils.SharePreUtils
 import cn.tosee.rtch264demo.view.TipsDialog
 import kotlinx.android.synthetic.main.layout_video_fragment.*
@@ -39,6 +44,7 @@ class LiveFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mActivity = activity as MainActivity
+        mActivity.addStreamHandler(rtcStreamCallback)
         PaaSInstance.addChannelEventHandler(channelEventHandler)
         PaaSInstanceHelper.addListener(informationInterface)
         val callback: OnBackPressedCallback =
@@ -187,6 +193,11 @@ class LiveFragment : Fragment() {
             }
         }
 
+        override fun onRemoteVideoStats(channel: IRtcChannel, stats: RemoteVideoStats) {
+            mActivity.runOnUiThread {
+                tv_remote_bitrate.text = "接受码流： ${stats.receivedBitrate} Kbps"
+            }
+        }
         override fun onError(channel: IRtcChannel?, err: Int, msg: String?) {
             when (err) {
 //                ERROR_TYPE.ERR_JOIN_CHANNEL_REJECTED,
@@ -224,6 +235,37 @@ class LiveFragment : Fragment() {
 
         }
 
+        override fun onPredictedBitrateChanged(
+            uid: String?,
+            streamName: String?,
+            newBitrate: Int,
+            isLowVideo: Boolean
+        ) {
+            if(newBitrate == 0)return
+            mActivity.runOnUiThread{
+                for (dataItem in mActivity.modifyList) {
+                    if (uid == dataItem.uid) {
+                        if(dataItem.isSelf){
+                            tv_local_prebitrate.text =
+                                "预测带宽： ${NetworkUtils.convertNetSpeed(newBitrate)}"
+                        }else{
+                            tv_remote_prebitrate.text =
+                                "预测带宽： ${NetworkUtils.convertNetSpeed(newBitrate)}"
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+
+        override fun onRtcStats(channel: IRtcChannel, stats: RtcStats) {
+            activity?.runOnUiThread{
+                tv_local_up_link.text = "${stats.txKBitRate / 8}KB/S"
+            }
+        }
+
     }
 
     var informationInterface = object : InformationInterface() {
@@ -247,8 +289,42 @@ class LiveFragment : Fragment() {
                 }
             }
         }
+
+        override fun onPredictedBitrateChanged(newBitrate: Int, isLowVideo: Boolean) {
+
+        }
+
     }
 
+    val rtcStreamCallback = object : MiddleStreamCallback(){
+        override fun onPredictedBitrateChanged(
+            rtcStream: IRtcStream,
+            newBitrate: Int,
+            isLowVideo: Boolean
+        ) {
+            mActivity.runOnUiThread {
+                tv_local_prebitrate.text =
+                    "预测带宽： ${NetworkUtils.convertNetSpeed(newBitrate)}"
+            }
+            if (isLowVideo) return
+            val currentRealBitrate = BitrateUtil.getRealBitrate(
+                1280,
+                720,
+                15
+            )
+            val newbitrate = if (currentRealBitrate > newBitrate) {
+                if(newBitrate < currentRealBitrate.shr(2)){
+                    currentRealBitrate.shr(2)
+                }else{
+                    newBitrate
+                }
+            } else {
+                currentRealBitrate
+            }
+            mActivity.customVideoSource?.resetBitrate(newbitrate)
+
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         mActivity.modifyList.clear()

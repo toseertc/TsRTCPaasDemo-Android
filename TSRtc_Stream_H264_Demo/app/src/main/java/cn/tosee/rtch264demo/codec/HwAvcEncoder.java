@@ -25,10 +25,10 @@ public class HwAvcEncoder implements EnCodecCallback {
 
     private EglBase14.Context sharedContext;
 
-    H264DataCallbac h264DataCallbac;
+    H264DataCallback h264DataCallback;
 
-    public HwAvcEncoder(H264DataCallbac callbac) {
-        this.h264DataCallbac = callbac;
+    public HwAvcEncoder(H264DataCallback callback) {
+        this.h264DataCallback = callback;
     }
 
     public int start(int width, int height, int frameRate, int bitrate) {
@@ -56,7 +56,7 @@ public class HwAvcEncoder implements EnCodecCallback {
         mVideoEncoder = new AndroidVideoEncoder(codecName, type,
                 surfaceColorFormat, yuvColorFormat, new HashMap<String, String>(), 2, new BaseBitrateAdjuster(),
                 sharedContext);
-        TSVideoCodecStatus TSVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate,0, HwAvcEncoder.this);
+        TSVideoCodecStatus TSVideoCodecStatus = mVideoEncoder.initEncode(width, height, frameRate, bitrate,2, HwAvcEncoder.this);
         code = TSVideoCodecStatus.getNumber();
 
         return code;
@@ -93,10 +93,10 @@ public class HwAvcEncoder implements EnCodecCallback {
 
     @Override
     public void onCodecFrame(EncodedImage image) {
-        if (h264DataCallbac != null) {
+        if (h264DataCallback != null) {
             packetData = new byte[image.buffer.limit()];
             image.buffer.get(packetData);
-            h264DataCallbac.onH264Packet(packetData, image.buffer.limit(), image.frameType.getNative() == 3, image.captureTimeNs);
+            h264DataCallback.onH264Packet(packetData, image.buffer.limit(), image.frameType.getNative() == 3,mVideoEncoder.getBitrateAdjuster().getAdjustedBitrateBps(),image.captureTimeNs);
         }
         Log.e(TAG, "onCodecFrame: ok");
     }
@@ -111,6 +111,15 @@ public class HwAvcEncoder implements EnCodecCallback {
             return new int[]{MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface};
         } else {
             return new int[]{};
+        }
+    }
+
+    public void resetBitrate(int bitrate){
+        if(mVideoEncoder != null){
+            int fps = mVideoEncoder.getBitrateAdjuster().getCodecConfigFramerate();
+            BaseBitrateAdjuster bitrateAdjuster = new BaseBitrateAdjuster();
+            bitrateAdjuster.setTargets(bitrate, fps);
+            mVideoEncoder.setBitrateAdjuster(bitrateAdjuster);
         }
     }
 
@@ -132,7 +141,7 @@ public class HwAvcEncoder implements EnCodecCallback {
             MediaCodecInfo.CodecCapabilities.COLOR_QCOM_FormatYUV420SemiPlanar,
             0x7FA30C04};
 
-    public interface H264DataCallbac {
-        void onH264Packet(byte[] data, int length, boolean isKey, long timestamp);
+    public interface H264DataCallback {
+        void onH264Packet(byte[] data, int length, boolean isKey,int bitrate, long timestamp);
     }
 }

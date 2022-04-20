@@ -55,4 +55,11 @@ abstract class MiddleEngineCallback {
 
     open fun onLocalNetworkQuality(txQuality: Int, rxQuality: Int) {}
 
+    /**
+     * @param newBitrate 预测的新的码率, int类型
+     * @param isLowVideo 是否为小流
+     *
+     */
+    open fun onPredictedBitrateChanged(newBitrate: Int, isLowVideo: Boolean ){}
+
 }

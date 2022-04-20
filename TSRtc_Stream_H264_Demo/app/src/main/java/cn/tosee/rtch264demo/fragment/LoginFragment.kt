@@ -36,8 +36,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mActivity = activity as MainActivity
         PaaSInstanceHelper.addListener(informationInterface)
         PaaSInstance.addChannelEventHandler(channelEventHandler)
+        PaaSInstance.enableBitratePrediction( mActivity.isDynamicBitrateOpen, mActivity.dynamicBitrateMode == 0 )
         val chanelId = SharePreUtils.getInstance(context).getValue(AppConstant.CHANNEL_ID, "")
         val userId = SharePreUtils.getInstance(context).getValue(AppConstant.USER_ID, "")
         channel_id_tv.setText(chanelId)
@@ -60,7 +62,7 @@ class LoginFragment : Fragment() {
             SharePreUtils.getInstance(context).setValue(AppConstant.CHANNEL_ID, channelId)
             SharePreUtils.getInstance(context).setValue(AppConstant.USER_ID, userId)
 
-            mActivity = activity as MainActivity
+
             mActivity.createChannel(channelId)
             val result = mActivity.joinChannel(userId)
             if (result == -2) {
@@ -127,6 +129,10 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        PaaSInstance.removeChannelEventHandler(channelEventHandler)
+        PaaSInstanceHelper.removeListener(informationInterface)
+    }
 
 }

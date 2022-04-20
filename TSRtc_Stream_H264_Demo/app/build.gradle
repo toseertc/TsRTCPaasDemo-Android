@@ -13,7 +13,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
-        versionName "0.6"
+        versionName "1.0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //rzrtc sdk
-     implementation 'com.github.toseebuilder:ts-rtc-sdk:2.4.0'
+     implementation 'com.github.toseebuilder:ts-rtc-sdk:3.0.0'
 
     implementation project(':parseh264')
 

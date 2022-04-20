@@ -72,9 +72,10 @@ public class CustomVideoSource implements IVideoSource {
             return;
         }
         if (shouldEncode) {
-            encoder = new HwAvcEncoder((data, length, isKey, timestamp) -> {
+            encoder = new HwAvcEncoder((data, length, isKey,bitrate, timestamp) -> {
                 if (consumer != null) {
-                    consumer.consumeVideoPacket(data, length, VIDEO_STREAM_TYPE.VIDEO_STREAM_H264, isKey, timestamp);
+                    consumer.consumeVideoPacket(data, length, VIDEO_STREAM_TYPE.VIDEO_STREAM_H264, isKey,bitrate,timestamp);
+//                    consumer.consumeVideoPacket(data, length, VIDEO_STREAM_TYPE.VIDEO_STREAM_H264, isKey,timestamp);
                 }
             });
         }
@@ -229,6 +230,9 @@ public class CustomVideoSource implements IVideoSource {
         return mEglBase;
     }
 
+    public void resetBitrate(int bitrate){
+        encoder.resetBitrate(bitrate);
+    }
 
     public void destroy() {
         consumer = null;
