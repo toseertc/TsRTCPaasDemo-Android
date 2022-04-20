@@ -19,10 +19,9 @@ import cn.tosee.rtch264demo.rtc.PaaSInstance
 import cn.tosee.rtch264demo.bean.DataBean
 import cn.tosee.rtch264demo.constant.PUBLISH_MEDIA_TYPE
 import cn.tosee.rtch264demo.constant.SUBSCRIBE_STREAM_STATE
-import cn.tosee.rtch264demo.constant.VIDEO_MIRROR_MODE_TYPE
 import cn.tosee.rtch264demo.constant.VIDEO_STREAM_TYPE
-import cn.tosee.rtch264demo.customvideo.CustomVideoSink
 import cn.tosee.rtch264demo.customvideo.CustomVideoSource
+import cn.tosee.rtch264demo.rtc.listener.MiddleStreamCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -30,11 +29,13 @@ class MainActivity : AppCompatActivity() {
     private val PERMISSION_CODE = 1000
     var createChannel: MiddleRtcChannel? = null
     val modifyList = CopyOnWriteArrayList<DataBean>()
-
+    var mStreamEventHandler:MiddleStreamCallback? = null
     var isJoinChanneled=false;
     var customVideoSource: CustomVideoSource? = null
     var createVideoStream: IRtcStream? = null
     val shouldVideoCodec = true //如果不需要使用外部编解码，则修改为false
+    val isDynamicBitrateOpen = true
+    val dynamicBitrateMode = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -121,8 +122,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun addStreamHandler(streamEventHandler: MiddleStreamCallback){
+        mStreamEventHandler = streamEventHandler
+    }
     //自定义流相关事件
-    object rtcStreamHandler : IRtcStreamEventHandler() {}
+    val rtcStreamHandler =  object : IRtcStreamEventHandler() {
+        override fun onPredictedBitrateChanged(
+            rtcStream: IRtcStream,
+            newBitrate: Int,
+            isLowVideo: Boolean
+        ) {
+            mStreamEventHandler?.onPredictedBitrateChanged(rtcStream,newBitrate,isLowVideo)
+        }
+    }
 
     val customEventhandler = object : CameraVideoCapturer.CameraEventsHandler {
         override fun onCameraError(errorDescription: String?) {
@@ -130,7 +142,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onCameraDisconnected() {
-
         }
 
         override fun onCameraFreezed(errorDescription: String?) {

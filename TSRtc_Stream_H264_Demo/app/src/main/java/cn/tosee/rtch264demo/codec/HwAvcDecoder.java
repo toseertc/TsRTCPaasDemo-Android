@@ -3,20 +3,15 @@ package cn.tosee.rtch264demo.codec;
 import android.media.MediaCodecInfo;
 import android.os.Build;
 
+import java.nio.ByteBuffer;
+
 import cn.tosee.rtc.annotation.CalledByNative;
-import cn.tosee.rtc.capture.EglBase;
 import cn.tosee.rtc.capture.VideoFrame;
 import cn.tosee.rtc.codec.AndroidVideoDecoder;
+import cn.tosee.rtc.codec.DeCodecCallback;
 import cn.tosee.rtc.codec.TSCodecUtils;
 import cn.tosee.rtc.codec.TSVideoCodecStatus;
-import cn.tosee.rtc.codec.DeCodecCallback;
 import cn.tosee.rtc.utils.Constant;
-import cn.tosee.parseh264.H264Utils;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
 
 public class HwAvcDecoder implements DeCodecCallback {
 

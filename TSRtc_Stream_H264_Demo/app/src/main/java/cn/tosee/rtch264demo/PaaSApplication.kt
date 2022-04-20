@@ -13,7 +13,7 @@ class PaaSApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        PaaSInstanceHelper.init(applicationContext,codecPriority=0,privateServiceUrl = AppConstant.devEnv,appId=AppConstant.DEFAULT_APPID, reInit = true)
+        PaaSInstanceHelper.init(applicationContext,codecPriority=0,appId=AppConstant.RELEASE_APPID, reInit = true)
     }
 
 

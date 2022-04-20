@@ -20,7 +20,6 @@ import cn.tosee.rtch264demo.rtc.listener.MiddleRtcChannelEventHandler
 object PaaSInstance {
     private final val TAG = "PaaSInstance"
     lateinit var mRtcEngine: RtcEngine
-    lateinit var mContext: Context
     lateinit var mMiddleEngineCallback: MiddleEngineCallback
     var mChannelEventHandlerList = mutableListOf<MiddleRtcChannelEventHandler>()
 
@@ -33,7 +32,6 @@ object PaaSInstance {
         middleCallback: MiddleEngineCallback
     ) {
         mMiddleEngineCallback = middleCallback
-        mContext = context
         if (reInit) {
             RtcEngine.release(false)
         }
@@ -219,6 +217,21 @@ object PaaSInstance {
         Log.e(TAG, "mRtcEngine.setAudioProfile(${profile},${scenario}) return=${result}")
         return result
     }
+
+
+    /**
+     * 设置动态码率。
+     *
+     * @param enablePrediction   是否开启码率预测功能  false: 不开启 true: 开启
+     * @param enableAutoAdjust    是否使用自动调整功能 false: 自定义 true: 全自动
+     * @return 0: 方法调用成功
+     * < 0: 方法调用失败
+     */
+    fun enableBitratePrediction(enablePrediction: Boolean,  enableAutoAdjust: Boolean): Int {
+        val result = mRtcEngine.enableBitratePrediction(enablePrediction,enableAutoAdjust)
+        return result
+    }
+
 
     /**
      * 开关本地音频发送。
@@ -664,21 +677,33 @@ object PaaSInstance {
             }
         }
 
-        override fun onRemoteAudioStats(channel: IRtcChannel?, stats: RemoteAudioStats?) {
+        override fun onRemoteAudioStats(channel: IRtcChannel, stats: RemoteAudioStats) {
             for (listener in mChannelEventHandlerList) {
                 listener.onRemoteAudioStats(channel, stats)
             }
         }
 
-        override fun onRemoteVideoStats(channel: IRtcChannel?, stats: RemoteVideoStats?) {
+        override fun onRemoteVideoStats(channel: IRtcChannel, stats: RemoteVideoStats) {
             for (listener in mChannelEventHandlerList) {
                 listener.onRemoteVideoStats(channel, stats)
             }
         }
 
-        override fun onRtcStats(channel: IRtcChannel?, stats: RtcStats?) {
+        override fun onRtcStats(channel: IRtcChannel, stats: RtcStats) {
             for (listener in mChannelEventHandlerList) {
                 listener.onRtcStats(channel, stats)
+            }
+        }
+
+        override fun onPredictedBitrateChanged(
+            channel: IRtcChannel?,
+            uid: String?,
+            streamName: String?,
+            newBitrate: Int,
+            isLowVideo: Boolean
+        ) {
+            for (listener in mChannelEventHandlerList) {
+                listener.onPredictedBitrateChanged(uid, streamName, newBitrate, isLowVideo)
             }
         }
     }

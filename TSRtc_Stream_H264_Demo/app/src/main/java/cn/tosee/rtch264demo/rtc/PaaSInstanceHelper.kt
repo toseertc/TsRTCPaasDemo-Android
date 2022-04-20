@@ -1,10 +1,7 @@
 package cn.tosee.rtch264demo.rtc
 
 import android.content.Context
-import cn.tosee.rtc.stats.AudioVolumeInfo
-import cn.tosee.rtc.stats.LastmileProbeResult
-import cn.tosee.rtc.stats.LocalAudioStats
-import cn.tosee.rtc.stats.LocalVideoStats
+import cn.tosee.rtc.stats.*
 import cn.tosee.rtch264demo.rtc.listener.MiddleEngineCallback
 import cn.tosee.rtch264demo.constant.AppConstant
 import cn.tosee.rtch264demo.rtc.listener.InformationInterface
@@ -143,6 +140,12 @@ object PaaSInstanceHelper {
                     override fun onLocalNetworkQuality(txQuality: Int, rxQuality: Int) {
                         for (listener in listeners) {
                             listener.onLocalNetworkQuality(txQuality, rxQuality)
+                        }
+                    }
+
+                    override fun onPredictedBitrateChanged(newBitrate: Int, isLowVideo: Boolean) {
+                        for (listener in listeners) {
+                            listener.onPredictedBitrateChanged(newBitrate, isLowVideo)
                         }
                     }
                 }
