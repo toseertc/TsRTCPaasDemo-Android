@@ -160,6 +160,7 @@ class MainActivity : AppCompatActivity() {
     val channelEventHandler = object : MiddleRtcChannelEventHandler() {
         override fun onJoinChannelSuccess(channel: IRtcChannel, userID: String, elapsed: Int) {
             isJoinChanneled=true;
+            createVideoStream?.enableDualStreamMode(true)//是否开启大小流 true 开启大小流  false 仅推送大流
             createVideoStream?.publish()
             onUserJoined(userID, true, "first")
         }
