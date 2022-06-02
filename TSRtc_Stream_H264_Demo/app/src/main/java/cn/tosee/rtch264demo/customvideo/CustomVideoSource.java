@@ -26,7 +26,7 @@ import java.util.List;
 
 
 public class CustomVideoSource implements IVideoSource {
-    public static final String TAG = "VideoSource";
+    public static final String TAG = "CustomVideoSource";
     public static final String VIDEO_CAPTURER_THREAD_NAME = "VideoCapturerThread";
 
     public Context mAppContext;
@@ -271,6 +271,18 @@ public class CustomVideoSource implements IVideoSource {
     public void onStop() {
         TSLog.e("ygscustom--->CustomVideoSource onstop" + this);
         stop();
+    }
+
+    @Override
+    public boolean isKeyFrameRequestSupported() {
+        TSLog.e("isKeyFrameRequestSupported");
+        return false;
+    }
+
+    @Override
+    public boolean requestKeyFrame() {
+        TSLog.e("requestKeyFrame");
+        return false;
     }
 
     public interface EncodeErrorInterface{
