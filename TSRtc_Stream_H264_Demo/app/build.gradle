@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //rzrtc sdk
-    implementation 'com.github.toseebuilder:ts-rtc-sdk:3.7.0'
+    implementation 'com.github.toseebuilder:ts-rtc-sdk:3.8.0'
 
     implementation project(':parseh264')
 
