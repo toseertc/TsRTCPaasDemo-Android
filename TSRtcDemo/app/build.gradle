@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //tsrtc sdk
-     implementation 'com.github.toseebuilder:ts-rtc-sdk:3.8.0'
+     implementation 'com.github.toseebuilder:ts-rtc-sdk:3.8.1'
 
 
 
